@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Profile</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+	<!-- NAVBAR -->
+	<header class="header">
+		<div class="header__body">
+
+			<!-- LOGO -->
+			<a th:href="@{/}" class="header__logo">Marketplace</a>
+
+
+			<!-- MENU -->
+			<nav class="header-menu">
+				<ul class="header-menu__list">
+					<li>
+						<a th:href="@{/}" class="header-menu__link">Main</a>
+					</li>
+					<li>
+						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li>
+						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+					</li>
+					<li>
+						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+					</li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+		<div class="profile__bg">
+			<div class="profile__block">
+				<div>
+					<h2>
+						<center>
+							Profile info
+						</center>
+					</h2>
+				</div>
+				<div class="profile__info">
+					<span>Login:</span>
+					<span class="align__right" th:text="${user.getLogin()}">Some Login</span>
+				</div>
+				<div class=profile__info>
+					<span>Name:</span>
+					<span class="align__right" th:text="${user.getName()}">Some Name</span>
+				</div>
+				<div class="profile__info">
+					<span>Address:</span>
+					<span class="align__right" th:text="${user.getAddress()}">Some adress some adress some adress</span>
+				</div>
+				<div class="profile__info">
+					<span>Role:</span>
+					<span class="align__right" th:text="${user.getRole().getName()}">Some role</span>
+				</div>
+			</div>
+		</div>
+
+	<section class="content__products">
+		<div class="title__inter">
+				<span class="profile__title">Items</span>
+			<a class="btn__add__item" th:href="@{/profile/{id}/newitem(id=${user.getId()})}">Add item</a>
+		</div>
+						
+						<div class="products__items">
+
+
+
+							<div class="products__item" th:each="item : ${items}">
+								<center>
+									<h2 class="title__item__name" th:text="${item.getName()}">Title or item name</h2>
+								</center>
+
+								
+									<div>
+										<p class="description__block" th:text="${item.getDescription()}">Some description Some description Son Some description</p>
+									</div>
+
+									<div th:if="${item.getAuctionLot() == null}">
+										<a class="btn__edit__item" th:href="@{/profile/{p_id}/item/{i_id}/edit(p_id=${user.getId()}, i_id=${item.getId()})}">
+											<center>Edit item</center>
+										</a>
+										<a class="btn__create__lot" th:href="@{/profile/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}">
+											<center>Create new lot</center>
+										</a>
+									</div>
+								</div>
+
+
+
+
+						</div>
+					</section>
+				</section>
+	</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Registration</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+		<!-- NAVBAR -->
+		<header class="header">
+				<div class="header__body">
+
+					<!-- LOGO -->
+					<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header__logo">Marketplace</a>
+			
+		
+					<!-- MENU -->			
+					<nav class="header-menu">
+						<ul class="header-menu__list">
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header-menu__link">Main</a>
+							</li>					
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/profile.html" class="header-menu__link">My profile</a>
+							</li>
+							<li>
+								<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+							</li>
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/login.html" class="header-menu__link">Login/Logout</a>
+							</li>
+									
+						</ul>
+					</nav>
+				</div>
+		</header>
+	
+		<!---->
+		<div class="registration__block">
+			<div>
+				<h1>
+					<center>Registration</center>
+				</h1>
+			</div>
+			<form class="registration__form" id="form" th:method="POST" th:action="@{/registration}" th:object="${user}">
+
+				<div>
+					<input class="field" tabindex="1" placeholder="Name" type="text" name="name" th:field="*{name}">
+					<div class="error"></div>
+				</div>
+				
+
+				<div>
+					<textarea class="text__area" tabindex="2" placeholder="Address" name="address" th:field="*{address}"></textarea>
+					<div class="error"></div>
+				</div>
+				
+
+				<div>
+					<input class="field" tabindex="3" placeholder="Login" type="text" name="login" th:field="*{login}">
+					<div class="error"></div>
+				</div>
+				
+
+				<div>
+					<input class="field" tabindex="4" placeholder="Password" type="text" id="password1" name="pass1" th:field="*{password}">
+					<div class="error"></div>
+				</div>
+				
+
+				<div>
+					<input class="field" tabindex="5" placeholder="Confirm password" type="text" id="password2" name="pass2">
+					<div class="error"></div>
+				</div>
+				
+
+
+				<div class="btn_space">
+					<button class="btn" tabindex="6" type="submit">Registration</button>
+				</div>
+
+				<div class="reg">
+					<center>
+						<a tabindex="7" th:href="@{/login}">Back to login page</a>
+					</center>
+				</div>
+
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript" th:src="@{/js/regval.js}"></script>
+</html>

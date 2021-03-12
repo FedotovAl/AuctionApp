@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Marketplace</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+
+
+
+
+
+
+		<!-- NAVBAR -->
+		<header class="header">
+				<div class="header__body">
+
+					<!-- LOGO -->
+					<a th:href="@{/}" class="header__logo">Marketplace</a>
+			
+		
+					<!-- MENU -->			
+					<nav class="header-menu">
+						<ul class="header-menu__list">
+							<li>
+								<a th:href="@{/}" class="header-menu__link">Main</a>
+							</li>					
+							<li>
+								<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+							</li>
+							<li>
+								<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+							</li>
+							<li>
+								<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+							</li>
+									
+						</ul>
+					</nav>
+				</div>
+		</header>
+
+
+
+
+
+
+
+
+		<div class="after__header">
+			<div>
+				
+			</div>
+		</div>
+
+	<section class="content__products">
+		<div class="title__inter">
+			<h2>Lots</h2>
+		</div>
+						
+						<div class="products__items">
+
+
+
+							<div class="lots_item" th:each="lot : ${lots}">
+								<center>
+									<h2 class="lot__item__name" th:text="${lot.getItem().getName()}">Title or item name</h2>
+								</center>
+
+								
+									<div>
+										<p class="description__block" th:text="${lot.getItem().getDescription()}">Some description Some description Some description description Some description</p>
+									</div>
+								
+							
+									<div class="lot__item__relative">
+										<span>Seller:</span>
+										<span class="align__right" th:text="${lot.getItem().getItemOwner().getLogin()}">John Doe</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Startprice:</span>
+										<span class="align__right _pr" th:text="${lot.getStartPrice()}">2.5</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Bid inc:</span>
+										<span class="align__right _inc" th:text="${lot.getBidInc()}">0.5</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Best offer:</span>
+										<span class="align__right _offer maybe" th:text="${lot?.getBestOffer()}">20</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Bidder:</span>
+										<span class="align__right maybe" th:text="${lot?.getHighestBidUser()?.getLogin()}">Mr. Smith</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Stopdate:</span>
+										<span class="align__right _stopdate" th:text="${lot.getStopDate()}">2021-03-20</span>
+									</div>
+									<div class="lot__item__relative">
+										<span>Timer:</span>
+										<span class="align__right red__color">
+											<span class= "_d"></span>
+											<span class= "_h"></span>
+											<span class= "_m"></span>
+											<span class= "_s"></span>
+										</span>
+									</div>
+									
+
+									<form class="lot__item__form"
+										  th:if="${lot.getItem().getItemOwner().getId() != user.getId()}"
+										  th:method="POST"
+										  th:action="@{/{id}(id=${lot.getId()})}" th:object="${bid}">
+
+										<input class="bid__field" placeholder="Your bid" type="text" name="bid" th:field="*{bidInc}"/>
+										<button class="bid__button">
+											Make a bid
+										</button>
+										<div class="errorind"></div>
+									</form>
+								</div>
+
+
+						</div>
+					</section>
+				</section>
+	</body>
+	<script type="text/javascript" th:src="@{/js/timer.js}"></script>
+	<script type="text/javascript" th:src="@{/js/indexval.js}"></script>
+	<script type="text/javascript" th:src="@{/js/optionalinfo.js}"></script>
+</html>

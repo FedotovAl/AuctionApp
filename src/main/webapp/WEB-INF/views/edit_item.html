@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Edit item</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+	<!-- NAVBAR -->
+	<header class="header">
+		<div class="header__body">
+
+			<!-- LOGO -->
+			<a th:href="@{/}" class="header__logo">Marketplace</a>
+
+
+			<!-- MENU -->
+			<nav class="header-menu">
+				<ul class="header-menu__list">
+					<li>
+						<a th:href="@{/}" class="header-menu__link">Main</a>
+					</li>
+					<li>
+						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li>
+						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+					</li>
+					<li>
+						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+					</li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+		<!---->
+		<div class="item__block">
+			<div>
+				<h1>
+					<center><span class="title__new__item-lot">Edit item</span></center>
+				</h1>
+			</div>
+			<form class="item-edit__form" th:method="PATCH" th:action="@{/profile/{p_id}/item/{i_id}(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${item}">
+
+				<div>
+					<input class="field" tabindex="1" placeholder="Name" type="text" name="name" th:field="*{name}">
+					<div class="error"></div>
+				</div>
+
+				<div>
+					<textarea class="text__area" tabindex="2" placeholder="Description" name="description" th:field="*{description}"></textarea>
+					<div class="error"></div>
+				</div>
+
+				<div class="btn_space">
+					<button class="item__btn" tabindex="3" type="submit">Save</button>
+				</div>
+
+				<div class="reg">
+					<center>
+						<a tabindex="4" th:href="@{/profile/{id}(id=${user.getId()})}">Back to profile</a>
+					</center>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript" th:src="@{/js/itemval.js}"></script>
+</html>

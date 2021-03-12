@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Create lot</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+	<!-- NAVBAR -->
+	<header class="header">
+		<div class="header__body">
+
+			<!-- LOGO -->
+			<a th:href="@{/}" class="header__logo">Marketplace</a>
+
+
+			<!-- MENU -->
+			<nav class="header-menu">
+				<ul class="header-menu__list">
+					<li>
+						<a th:href="@{/}" class="header-menu__link">Main</a>
+					</li>
+					<li>
+						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li>
+						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+					</li>
+					<li>
+						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+					</li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+		<!---->
+		<div class="lot__block">
+			<div>
+				<h1>
+					<center><span class="title__new__item-lot">Create new lot</span></center>
+				</h1>
+			</div>
+
+				<div>
+					<div class="disable__error"></div>
+					<input class="field" disabled tabindex="1" type="text" name="name" th:placeholder="${item.getName()}">
+					<div class="disable__error"></div>
+				</div>
+
+				<div>
+					<textarea class="text__area _margin" disabled tabindex="2" name="description" th:placeholder="${item.getDescription()}"></textarea>
+				</div>
+			<form class="lot__form" th:method="POST" th:action="@{/profile/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${lot}">
+				<div>
+					<input class="field" tabindex="3" placeholder="Start price" type="text" id="price" name="start_price" th:field="*{startPrice}">
+					<div class="error"></div>
+				</div>
+				<div>
+					<input class="field" tabindex="4" placeholder="Bid inc" type="text" id="inc" name="bid_inc" th:field="*{bidInc}">
+					<div class="error"></div>
+				</div>
+				<div>
+					<input class="field" tabindex="5" placeholder="Choose date" type="date" id="date" name="stop_date" th:field="*{stopDate}">
+					<div class="error"></div>
+				</div>
+
+				<div class="btn_space">
+					<button class="item__btn" tabindex="6" type="submit">Create</button>
+				</div>
+
+				<div class="reg">
+					<center>
+						<a tabindex="7" th:href="@{/profile/{id}(id=${user.getId()})}">Back to profile</a>
+					</center>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript" th:src="@{/js/lotval.js}"></script>
+</html>

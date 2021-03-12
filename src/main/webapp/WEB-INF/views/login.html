@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	</head>
+	<body>
+		<!-- NAVBAR -->
+		<header class="header">
+				<div class="header__body">
+
+					<!-- LOGO -->
+					<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header__logo">Marketplace</a>
+			
+		
+					<!-- MENU -->			
+					<nav class="header-menu">
+						<ul class="header-menu__list">
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header-menu__link">Main</a>
+							</li>					
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/profile.html" class="header-menu__link">My profile</a>
+							</li>
+							<li>
+								<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+							</li>
+							<li>
+								<a href="file:///Users/aleksey/Desktop/front/MainProj/login.html" class="header-menu__link">Login/Logout</a>
+							</li>
+									
+						</ul>
+					</nav>
+				</div>
+		</header>
+	
+		<!---->
+		<div class="login__block">
+			<div>
+				<h1>
+					<center>Login</center>
+				</h1>
+			</div>
+			<form class="login__form" id="form" th:method="POST" th:action="@{/login}" th:object="${user}">
+
+				<div>
+					<input class="field _req" tabindex="1" placeholder="Login" type="text" name="login" th:field="*{login}">
+					<div class="error"></div>
+				</div>
+				
+
+				<div>
+					<input class="field _req" tabindex="2" placeholder="Password" type="password" name="pass" th:field="*{password}">
+					<div class="error"></div>
+				</div>
+				
+
+				<div class="btn_space">
+					<button class="btn" tabindex="3" type="submit">Login</button>
+				</div>
+
+				<div class="reg">
+					<center>
+						<a tabindex="4" th:href="@{/registration}">Create an account</a>
+					</center>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript" th:src="@{/js/loginval.js}"></script>
+</html>
