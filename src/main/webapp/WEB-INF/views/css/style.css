@@ -56,10 +56,37 @@ h2{
     font-size: 35px;
 }
 
+.custom__link:link{
+    color:black;
+}
+.custom__link:hover{
+    color: black;
+}
+.custom__link:visited{
+    color: black;
+}
+
 
 
 .red__color{
     color:red;
+}
+
+.space{
+    margin: 50px 0 30px 0;
+}
+
+.little__space{
+    margin: 10px 0;
+}
+
+.user__info{
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+    background-color: white;
+    font-size: 18px;
+    width: 150px;
+    padding: 10px;
 }
 
 
@@ -109,7 +136,7 @@ h2{
     padding: 30px;
 }
 .login__form{
-    margin-top: 140px;
+    margin-top: 120px;
     /*border: 2px solid;*/
 }
 .registration__form{

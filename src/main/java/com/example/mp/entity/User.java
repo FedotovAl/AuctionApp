@@ -1,8 +1,13 @@
 package com.example.mp.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -16,15 +21,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name should not be empty")
+    @Size(min = 8, max = 50, message = "Name size should be {8 : 50}")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Address should not be empty")
+    @Size(min = 10, max = 255, message = "Address size should be {10 : 255}")
     @Column(name = "address")
     private String address;
 
+    @NotBlank(message = "Login should not be empty")
+    @Size(min = 3, max = 16, message = "Login size should be {3 : 16}")
     @Column(name = "login")
     private String login;
 
+    @NotBlank(message = "Password should not be empty")
     @Column(name = "password")
     private String password;
 

@@ -21,13 +21,16 @@
 						<a th:href="@{/}" class="header-menu__link">Main</a>
 					</li>
 					<li>
-						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+						<a th:href="@{/user/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li th:if="${user.getRole().getName() == 'ADMIN'}">
+						<a th:href="@{/users}" class="header-menu__link">Users</a>
 					</li>
 					<li>
 						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
 					</li>
 					<li>
-						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+						<a th:href="@{/logout}" class="header-menu__link">Logout</a>
 					</li>
 
 				</ul>
@@ -42,7 +45,7 @@
 					<center><span class="title__new__item-lot">Edit item</span></center>
 				</h1>
 			</div>
-			<form class="item-edit__form" th:method="PATCH" th:action="@{/profile/{p_id}/item/{i_id}(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${item}">
+			<form class="item-edit__form" th:method="PATCH" th:action="@{/user/{p_id}/item/{i_id}(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${item}">
 
 				<div>
 					<input class="field" tabindex="1" placeholder="Name" type="text" name="name" th:field="*{name}">
@@ -60,7 +63,7 @@
 
 				<div class="reg">
 					<center>
-						<a tabindex="4" th:href="@{/profile/{id}(id=${user.getId()})}">Back to profile</a>
+						<a tabindex="4" th:href="@{/user/{id}(id=${user.getId()})}">Back to profile</a>
 					</center>
 				</div>
 			</form>

@@ -95,7 +95,7 @@ for (let i = 0; i < lots.length; i++){
 
 			console.log(errors);
 			if (errors === 0) {
-				compl();
+				//compl();
 				form.submit();
 				form.reset();
 			}

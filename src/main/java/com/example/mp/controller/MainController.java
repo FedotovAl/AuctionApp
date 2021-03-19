@@ -2,8 +2,7 @@ package com.example.mp.controller;
 
 import com.example.mp.entity.AuctionLot;
 import com.example.mp.service.AuctionLotService;
-import com.example.mp.service.UserService;
-import com.example.mp.test.TestUser;
+import com.example.mp.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,21 +17,21 @@ import java.util.List;
 @RequestMapping("/")
 public class MainController {
     private final AuctionLotService auctionLotService;
-    private final UserService userService;
+    private final SecurityService securityService;
 
-    //todo
     @GetMapping()
-    public String index(Model model, @ModelAttribute("bid") AuctionLot auctionLot){
+    public String index(Model model){
         List<AuctionLot> lots = auctionLotService.findAll();
         lots.sort(Comparator.comparing(AuctionLot::getId).reversed());
         model.addAttribute("lots", lots);
-        model.addAttribute("user", userService.findById(TestUser.id));
+        model.addAttribute("authUser", securityService.getAuthUser());
         return "index";
     }
-    //todo
-    @PostMapping("/{id}")
-    public String makeBid(@PathVariable("id") Long lotId, @ModelAttribute("bid") AuctionLot auctionLot){
-        auctionLotService.update(TestUser.id, lotId, auctionLot.getBidInc());
+
+    @PostMapping("/bids/{id}")
+    public String makeBid(@PathVariable("id") Long lotId,
+                          @RequestParam("bid") BigDecimal bid){
+        auctionLotService.update(securityService.getAuthUser().getId(), lotId, bid);
         return "redirect:/";
     }
 

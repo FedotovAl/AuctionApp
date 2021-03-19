@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head>
-		<title>Profile</title>
+		<title>User</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 	</head>
@@ -20,14 +20,20 @@
 					<li>
 						<a th:href="@{/}" class="header-menu__link">Main</a>
 					</li>
-					<li>
-						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					<li sec:authorize="isAuthenticated()">
+						<a th:href="@{/user/{id}(id=${authUser.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li th:if="${authUser?.getRole()?.getName() == 'ADMIN'}">
+						<a th:href="@{/users}" class="header-menu__link">Users</a>
 					</li>
 					<li>
 						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
 					</li>
-					<li>
-						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+					<li sec:authorize="isAnonymous()">
+						<a th:href="@{/login}" class="header-menu__link">Login</a>
+					</li>
+					<li sec:authorize="isAuthenticated()">
+						<a th:href="@{/logout}" class="header-menu__link">Logout</a>
 					</li>
 
 				</ul>
@@ -66,7 +72,7 @@
 	<section class="content__products">
 		<div class="title__inter">
 				<span class="profile__title">Items</span>
-			<a class="btn__add__item" th:href="@{/profile/{id}/newitem(id=${user.getId()})}">Add item</a>
+			<a class="btn__add__item" th:if="${authUser?.getId() == user.getId()}" th:href="@{/user/{id}/newitem(id=${user.getId()})}">Add item</a>
 		</div>
 						
 						<div class="products__items">
@@ -83,11 +89,11 @@
 										<p class="description__block" th:text="${item.getDescription()}">Some description Some description Son Some description</p>
 									</div>
 
-									<div th:if="${item.getAuctionLot() == null}">
-										<a class="btn__edit__item" th:href="@{/profile/{p_id}/item/{i_id}/edit(p_id=${user.getId()}, i_id=${item.getId()})}">
+									<div th:if="${item.getAuctionLot() == null and authUser?.getId() == user.getId()}">
+										<a class="btn__edit__item" th:href="@{/user/{p_id}/item/{i_id}/edit(p_id=${user.getId()}, i_id=${item.getId()})}">
 											<center>Edit item</center>
 										</a>
-										<a class="btn__create__lot" th:href="@{/profile/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}">
+										<a class="btn__create__lot" th:if="${authUser?.getId() == user.getId()}" th:href="@{/user/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}">
 											<center>Create new lot</center>
 										</a>
 									</div>

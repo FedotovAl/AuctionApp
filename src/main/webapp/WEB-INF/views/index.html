@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head>
 		<title>Marketplace</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
@@ -26,14 +26,20 @@
 							<li>
 								<a th:href="@{/}" class="header-menu__link">Main</a>
 							</li>					
-							<li>
-								<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+							<li sec:authorize="isAuthenticated()">
+								<a th:href="@{/user/{id}(id=${authUser.getId()})}" class="header-menu__link">My profile</a>
+							</li>
+							<li th:if="${authUser?.getRole()?.getName() == 'ADMIN'}">
+								<a th:href="@{/users}" class="header-menu__link">Users</a>
 							</li>
 							<li>
 								<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
 							</li>
-							<li>
-								<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+							<li sec:authorize="isAnonymous()">
+								<a th:href="@{/login}" class="header-menu__link">Login</a>
+							</li>
+							<li sec:authorize="isAuthenticated()">
+								<a th:href="@{/logout}" class="header-menu__link">Logout</a>
 							</li>
 									
 						</ul>
@@ -76,7 +82,7 @@
 							
 									<div class="lot__item__relative">
 										<span>Seller:</span>
-										<span class="align__right" th:text="${lot.getItem().getItemOwner().getLogin()}">John Doe</span>
+										<a class="align__right custom__link" th:href="@{/user/{id}(id=${lot.getItem().getItemOwner().getId()})}" th:text="${lot.getItem().getItemOwner().getLogin()}">John Doe</a>
 									</div>
 									<div class="lot__item__relative">
 										<span>Startprice:</span>
@@ -92,7 +98,8 @@
 									</div>
 									<div class="lot__item__relative">
 										<span>Bidder:</span>
-										<span class="align__right maybe" th:text="${lot?.getHighestBidUser()?.getLogin()}">Mr. Smith</span>
+										<span class="align__right" th:if="${lot?.getHighestBidUser()?.getId() == null}">Empty data</span>
+										<a class="align__right custom__link" th:if="${lot?.getHighestBidUser()?.getId() != null}" th:href="@{/user/{id}(id=${lot?.getHighestBidUser()?.getId()})}" th:text="${lot?.getHighestBidUser()?.getLogin()}">Mr. Smith</a>
 									</div>
 									<div class="lot__item__relative">
 										<span>Stopdate:</span>
@@ -110,11 +117,12 @@
 									
 
 									<form class="lot__item__form"
-										  th:if="${lot.getItem().getItemOwner().getId() != user.getId()}"
+										  sec:authorize="isAuthenticated()"
+										  th:if="${lot.getItem().getItemOwner().getId() != authUser.getId()}"
 										  th:method="POST"
-										  th:action="@{/{id}(id=${lot.getId()})}" th:object="${bid}">
+										  th:action="@{/bids/{id}(id=${lot.getId()})}">
 
-										<input class="bid__field" placeholder="Your bid" type="text" name="bid" th:field="*{bidInc}"/>
+										<input class="bid__field" placeholder="Your bid" type="text" name="bid"/>
 										<button class="bid__button">
 											Make a bid
 										</button>

@@ -11,23 +11,20 @@
 				<div class="header__body">
 
 					<!-- LOGO -->
-					<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header__logo">Marketplace</a>
+					<a th:href="@{/}" class="header__logo">Marketplace</a>
 			
 		
 					<!-- MENU -->			
 					<nav class="header-menu">
 						<ul class="header-menu__list">
 							<li>
-								<a href="file:///Users/aleksey/Desktop/front/MainProj/index.html" class="header-menu__link">Main</a>
-							</li>					
-							<li>
-								<a href="file:///Users/aleksey/Desktop/front/MainProj/profile.html" class="header-menu__link">My profile</a>
+								<a th:href="@{/}" class="header-menu__link">Main</a>
 							</li>
 							<li>
 								<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
 							</li>
 							<li>
-								<a href="file:///Users/aleksey/Desktop/front/MainProj/login.html" class="header-menu__link">Login/Logout</a>
+								<a th:href="@{/login}" class="header-menu__link">Login</a>
 							</li>
 									
 						</ul>
@@ -42,16 +39,17 @@
 					<center>Login</center>
 				</h1>
 			</div>
-			<form class="login__form" id="form" th:method="POST" th:action="@{/login}" th:object="${user}">
-
+			<form class="login__form" id="form" th:method="POST" th:action="@{/login/process}">
+				<p class="error" th:if="${error != null}">Bad credentials</p>
+				<p class="error" th:if="${error == null}"></p>
 				<div>
-					<input class="field _req" tabindex="1" placeholder="Login" type="text" name="login" th:field="*{login}">
+					<input class="field _req" tabindex="1" placeholder="Login" type="text" name="login">
 					<div class="error"></div>
 				</div>
 				
 
 				<div>
-					<input class="field _req" tabindex="2" placeholder="Password" type="password" name="pass" th:field="*{password}">
+					<input class="field _req" tabindex="2" placeholder="Password" type="password" name="password">
 					<div class="error"></div>
 				</div>
 				

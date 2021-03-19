@@ -21,13 +21,16 @@
 						<a th:href="@{/}" class="header-menu__link">Main</a>
 					</li>
 					<li>
-						<a th:href="@{/profile/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+						<a th:href="@{/user/{id}(id=${user.getId()})}" class="header-menu__link">My profile</a>
+					</li>
+					<li th:if="${user.getRole().getName() == 'ADMIN'}">
+						<a th:href="@{/users}" class="header-menu__link">Users</a>
 					</li>
 					<li>
 						<a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
 					</li>
 					<li>
-						<a th:href="@{/login}" class="header-menu__link">Login/Logout</a>
+						<a th:href="@{/logout}" class="header-menu__link">Logout</a>
 					</li>
 
 				</ul>
@@ -52,7 +55,7 @@
 				<div>
 					<textarea class="text__area _margin" disabled tabindex="2" name="description" th:placeholder="${item.getDescription()}"></textarea>
 				</div>
-			<form class="lot__form" th:method="POST" th:action="@{/profile/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${lot}">
+			<form class="lot__form" th:method="POST" th:action="@{/user/{p_id}/item/{i_id}/createlot(p_id=${user.getId()}, i_id=${item.getId()})}" th:object="${lot}">
 				<div>
 					<input class="field" tabindex="3" placeholder="Start price" type="text" id="price" name="start_price" th:field="*{startPrice}">
 					<div class="error"></div>
@@ -72,7 +75,7 @@
 
 				<div class="reg">
 					<center>
-						<a tabindex="7" th:href="@{/profile/{id}(id=${user.getId()})}">Back to profile</a>
+						<a tabindex="7" th:href="@{/user/{id}(id=${user.getId()})}">Back to profile</a>
 					</center>
 				</div>
 			</form>

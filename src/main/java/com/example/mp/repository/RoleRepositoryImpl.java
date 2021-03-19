@@ -1,9 +1,11 @@
 package com.example.mp.repository;
 
 import com.example.mp.entity.Role;
+import com.example.mp.entity.Status;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,8 +28,12 @@ public class RoleRepositoryImpl implements RoleRepository{
     }
 
     @Override
-    public Role findByName(String name) {
-        return findAll().stream().filter(role -> role.getName().equals(name)).findAny().orElse(null);
+    public Role findByName(String targetName) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Role where name = :paramName";
+        Query query = session.createQuery(hql);
+        query.setParameter("paramName", targetName);
+        return (Role)query.getResultStream().findAny().orElse(null);
     }
 
     @Override

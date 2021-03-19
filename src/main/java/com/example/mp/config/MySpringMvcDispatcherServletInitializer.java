@@ -1,5 +1,6 @@
 package com.example.mp.config;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -9,7 +10,7 @@ import javax.servlet.ServletException;
 public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{PersistenceJPAConfig.class};
+        return new Class[]{PersistenceJPAConfig.class, SecurityConfig.class};
     }
 
     @Override

@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 		if (errors === 0){
-			compl();
+			//compl();
 			form.submit();
 			form.reset();
 		}

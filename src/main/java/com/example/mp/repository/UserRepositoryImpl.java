@@ -4,6 +4,7 @@ import com.example.mp.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,8 +29,12 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User findByLogin(String name) {
-        return findAll().stream().filter(user -> user.getLogin().equals(name)).findAny().orElse(null);
+    public User findByLogin(String targetLogin) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from User where login = :paramLogin";
+        Query query = session.createQuery(hql);
+        query.setParameter("paramLogin", targetLogin);
+        return (User)query.getResultStream().findAny().orElse(null);
     }
 
     @Override
