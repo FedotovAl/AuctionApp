@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Marketplace</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+</head>
+<body>
+
+
+
+
+
+
+<!-- NAVBAR -->
+<header class="header">
+    <div class="header__body">
+
+        <!-- LOGO -->
+        <a th:href="@{/}" class="header__logo">Marketplace</a>
+
+
+        <!-- MENU -->
+        <nav class="header-menu">
+            <ul class="header-menu__list">
+                <li>
+                    <a th:href="@{/}" class="header-menu__link">Main</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/{id}(id=${authUser.getId()})}" class="header-menu__link">My profile</a>
+                </li>
+                <li th:if="${authUser?.getRole()?.getName() == 'ADMIN'}">
+                    <a th:href="@{/users}" class="header-menu__link">Users</a>
+                </li>
+                <li>
+                    <a href="https://kb.epam.com/display/GDOKB/%5Bpractice%5D+html_javascript" target="_blank" class="header-menu__link">Info</a>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="header-menu__link">Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}" class="header-menu__link">Logout</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+    <div class="space">
+
+
+
+        <div class="little__space user__info" th:each="user : ${users}">
+                <div>
+                    <a class="custom__link" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.getLogin()}">Login</a>
+                </div>
+            <br>
+                <div>
+                    <p th:text="${user.getRole().getName()}">Role</p>
+                </div>
+        </div>
+
+
+    </div>
+
+</div>
+</section>
+</section>
+</body>
+</html>
